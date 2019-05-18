@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>E-CREP - IONIS | Accueil</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+  <script src="js/display.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/web3@0.19.0/dist/web3.js"></script>
+  <script src="js/metamask.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" />
+  <link rel="stylesheet" href="css/styleflashboxs.css" />
+  <script type="text/javascript" src="js/flashboxs.js"></script>
+</head>
+<body>
+    <div id="header">
+        <a href="" class="col-sm-2"><h1>E-CREP</h1></a>
+        <img src="img/ionis.png" alt="IONIS group" />
+        <div id="user">
+            <div id="username">
+                <img src="img/profil.png" alt="avatar" /> Valentin Bonnet
+            </div>
+            <div id="userdetails">
+                <p>Email: valentin.bonnet@epitech.eu</p>
+                <p id="shortusermoney"></p>
+                <p>School: Epitech Marseille</p>
+                <p>Promotion: 2023</p>
+                <hr>
+                <div class="btn btn-primary">Déconnection</div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-2 sidenav pad-20">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active" id="homebutton"><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li id="transactionbutton"><a href="#"><i class="fas fa-donate"></i> Transaction</a></li>
+                    <li id="historybutton"><a href="#"><i class="fas fa-list-ul"></i> History</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9" id="home">
+                <div class="col-md-12" id="welcome">
+                    <div class="col-md-6">
+                        <h1><i class="fas fa-home"></i> Welcome Valentin !</h1>
+                    </div>
+                    <div class="col-md-6">
+                        <h2 id="usermoney"></h2>
+                        <script>display_creps();</script>
+                    </div>
+                </div>
+                <hr>
+                <h3>What is the CREP?</h3>
+                <p>The CREP, also called "Cryptocurrency Epitech", is as its name suggests a cryptocurrency.</p>
+                <p>A cryptocurrency is a non-physical currency that can be used on a decentralized computer network.</p>
+                <p>CREP is the currency of the IONIS group created for group students.</p>
+                <hr>
+                <h3>What is it for?</h3>
+                <p>The CREP makes it possible to buy services such as "live coding" (Epitech), activities organized by the BDE.</p>
+                <hr>
+                <h3>How to earn CREPs?</h3>
+                <p>Winning CREP students by obtaining degrees at the various modules.</p>
+                <p>Indeed, these are evolutionary. That is, your rating is good, you earn credit.</p>
+                <p>In addition, it is also possible to obtain services for your school.</p>
+                <hr>
+                <h3>The creation of CREP...</h3>
+                <p>The CREP was created on 19 December 2018 by two Epitech students during a Hackaton Blockchain challenge.</p>
+                <p>The goal of this challenge was to create a cryptocurrency for IONIS schools.</p>
+            </div>
+            <div class="col-sm-9 dispnone" id="transaction">
+                <div class="col-md-12" id="welcome">
+                    <div class="col-md-6">
+                        <h1><i class="fas fa-donate"></i> Transaction</h1>
+                    </div>
+                </div>
+                <hr>
+                <div class="col-md-4">
+                    <h2><i class="fas fa-money-bill-wave"></i> Amount</h2>
+                    <input type="number" min="1" name="money" class="form-control" placeholder="Ex: 42 (min 1)">
+                </div>
+                <div class="col-md-4">
+                    <h2><i class="fas fa-user-lock"></i> Addressee</h2>
+                    <input type="text" maxlength="42" name="address" class="form-control" placeholder="Ex: 0x4096fff42000a...">
+                </div>
+                <div class="col-md-4">
+                    <h2><i class="fas fa-question-circle"></i> Reason</h2>
+                    <input type="text" name="reason" class="form-control" placeholder="Ex: I help my teacher :)">
+                </div>
+                <button type="submit" id="transactionsubmit" class="btn btn-primary">Submit</button>
+            </div>
+            <div class="col-sm-9 dispnone" id="history">
+                <div class="col-md-12" id="welcome">
+                    <div class="col-md-6">
+                        <h1><i class="fas fa-list-ul"></i> History</h1>
+                    </div>
+                </div>
+                <hr>
+                <table id="historyarray" class="table table-striped table-bordered dt-responsive nowrap">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Addressee</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>50</td>
+                            <td>Mcdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>20</td>
+                            <td>Help teacher</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>1</td>
+                            <td>Wash school</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>50</td>
+                            <td>Mcdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>20</td>
+                            <td>Help teacher</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>1</td>
+                            <td>Wash school</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">7</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>50</td>
+                            <td>Mcdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">8</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>20</td>
+                            <td>Help teacher</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">9</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>1</td>
+                            <td>Wash school</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">10</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>50</td>
+                            <td>Mcdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">11</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>20</td>
+                            <td>Help teacher</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">12</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>1</td>
+                            <td>Wash school</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">13</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>50</td>
+                            <td>Mcdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">14</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>20</td>
+                            <td>Help teacher</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">15</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>1</td>
+                            <td>Wash school</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">16</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>50</td>
+                            <td>Mcdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">17</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>20</td>
+                            <td>Help teacher</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">18</th>
+                            <td>18/12/18 at 23:42</td>
+                            <td>0x4096fff42000a...</td>
+                            <td>1</td>
+                            <td>Wash school</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid">
+        <div class="col-md-4 text-center">Version: Bêta</div><div class="col-md-4 text-center">Réalisé par {Epitech}</div><div class="col-md-4 text-center">© IONIS - 2019</div> 
+    </footer>
+    <div class="Boxs">
+        <div id="danger" class="danger" onclick="Hidden('danger')">
+            <img src="img/DangerWhite.png" alt="Danger"/><span id="dangermsg" ></span>
+        </div>
+        <div id="success" class="success" onclick="Hidden('warning')">
+            <img src="img/SuccessWhite.png" alt="Success"/><span id="successmsg"></span>
+        </div>
+    </div>
+</body>
+</html>
